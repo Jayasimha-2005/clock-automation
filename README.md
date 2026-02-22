@@ -1,11 +1,13 @@
-# Android App Automation - BrowserStack
+# Mobile App Automation - BrowserStack (Android & iOS)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Appium](https://img.shields.io/badge/Appium-3.0%2B-green.svg)](https://appium.io/)
 [![BrowserStack](https://img.shields.io/badge/Platform-BrowserStack-orange.svg)](https://www.browserstack.com/)
+[![Android](https://img.shields.io/badge/Android-Supported-green.svg)](https://developer.android.com/)
+[![iOS](https://img.shields.io/badge/iOS-Supported-blue.svg)](https://developer.apple.com/ios/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Professional Android mobile automation framework using **Appium-Python-Client** and **BrowserStack** cloud platform for scalable, reliable mobile app testing.
+Professional cross-platform mobile automation framework using **Appium-Python-Client** and **BrowserStack** cloud platform for scalable, reliable Android & iOS app testing.
 
 ---
 
@@ -27,25 +29,28 @@ Professional Android mobile automation framework using **Appium-Python-Client** 
 
 ## 🎯 Overview
 
-This framework provides a production-ready automation solution for Android mobile applications using:
+This framework provides a production-ready automation solution for **Android & iOS** mobile applications using:
 - **Python 3.10+** - Modern, maintainable scripting
 - **Appium-Python-Client 3.0+** - Industry-standard mobile automation
 - **Selenium WebDriver** - Robust element interaction
 - **BrowserStack Cloud** - Scalable device infrastructure
 - **UiAutomator2** - Native Android automation engine
+- **XCUITest** - Native iOS automation engine
 
 ---
 
 ## ✨ Features
 
+- ✅ **Cross-Platform Support** - Test on both Android & iOS
 - ✅ **BrowserStack Cloud Integration** - Test on 3000+ real devices
-- ✅ **UiAutomator2 Engine** - Fast, reliable Android automation
+- ✅ **UiAutomator2 & XCUITest** - Fast, reliable native automation
 - ✅ **Smart Element Location** - Multiple fallback locator strategies
 - ✅ **Explicit Waits** - Robust synchronization handling
 - ✅ **Comprehensive Error Handling** - Screenshots + detailed logging
 - ✅ **Session Status Reporting** - Pass/fail status to BrowserStack
 - ✅ **Professional Logging** - Clean, structured test output
 - ✅ **Virtual Environment** - Isolated dependency management
+- ✅ **Easy Platform Switching** - Simple configuration toggle
 
 ---
 
@@ -59,7 +64,9 @@ This framework provides a production-ready automation solution for Android mobil
 ### BrowserStack Account
 - Active BrowserStack account → [Sign up here](https://www.browserstack.com/)
 - Username and Access Key from [Account Settings](https://www.browserstack.com/accounts/settings)
-- Uploaded app (.apk) to BrowserStack → [Upload Apps](https://app-automate.browserstack.com/dashboard/v2/apps)
+- Uploaded app to BrowserStack → [Upload Apps](https://app-automate.browserstack.com/dashboard/v2/apps)
+  - **Android**: Upload `.apk` file
+  - **iOS**: Upload `.ipa` file
 
 ---
 
@@ -97,105 +104,203 @@ pip list
 
 ## ⚙️ Configuration
 
+### Platform Selection
+
+The framework supports **both Android and iOS**. Switch platforms by changing the `platform` value in `TEST_CONFIG`:
+
+```python
+TEST_CONFIG = {
+    'platform': 'Android',  # Change to 'iOS' for iOS testing
+    # ... other configs
+}
+```
+
 ### BrowserStack Credentials
 
 Update credentials in `test/clock_alarm_test.py`:
 
 ```python
-options.set_capability("bstack:options", {
+"bstack:options": {
     "userName": "YOUR_USERNAME",      # Replace with your username
     "accessKey": "YOUR_ACCESS_KEY",   # Replace with your access key
     # ... other options
-})
-```
-
-### Test Configuration
-
-Modify `TEST_CONFIG` in `test/clock_alarm_test.py`:
-
-```python
-TEST_CONFIG = {
-    'test_name': 'Your Test Name',
-    'platform': 'Android',
-    'device': 'Samsung Galaxy S22',              # Change device
-    'app_id': 'bs://YOUR_APP_ID',                # Your uploaded app ID
-    'project_name': 'Your Project Name',
-    'build_name': 'Your Build Name'
 }
 ```
 
-### Device Configuration
+### Android Configuration
 
-Update device details in `get_capabilities()`:
+Configure Android settings in `TEST_CONFIG`:
 
 ```python
-options.set_capability("bstack:options", {
-    "deviceName": "Samsung Galaxy S22",   # Target device
-    "osVersion": "12.0",                  # Android version
-    # ... other options
-})
+'android': {
+    'device': 'Samsung Galaxy S22',              # Target Android device
+    'os_version': '12.0',                        # Android OS version
+    'app_id': 'bs://YOUR_ANDROID_APP_ID',        # Uploaded .apk ID
+}
+```
+
+**Available Android Devices:** Google Pixel, Samsung Galaxy, OnePlus, etc.
+
+### iOS Configuration
+
+Configure iOS settings in `TEST_CONFIG`:
+
+```python
+'ios': {
+    'device': 'iPhone 14',                       # Target iOS device
+    'os_version': '16',                          # iOS version
+    'app_id': 'bs://YOUR_IOS_APP_ID',           # Uploaded .ipa ID
+    'bundle_id': 'com.example.app'               # iOS bundle identifier
+}
+```
+
+**Available iOS Devices:** iPhone 14/15, iPhone SE, iPad Pro, etc.
+
+### Complete Configuration Example
+
+```python
+TEST_CONFIG = {
+    'test_name': 'Mobile App Test',
+    'platform': 'Android',  # Switch to 'iOS' for iOS testing
+    
+    # Android Configuration
+    'android': {
+        'device': 'Samsung Galaxy S22',
+        'os_version': '12.0',
+        'app_id': 'bs://your_android_app_id',
+    },
+    
+    # iOS Configuration
+    'ios': {
+        'device': 'iPhone 14',
+        'os_version': '16',
+        'app_id': 'bs://your_ios_app_id',
+        'bundle_id': 'com.example.app'
+    },
+    
+    # Common Settings
+    'project_name': 'Mobile App Automation',
+    'build_name': 'Cross-Platform Execution'
+}
 ```
 
 ---
 
 ## 🎮 Usage
 
-### Run Test Script
+### Run Cross-Platform Test Script
 
 ```bash
 # Windows (with virtual environment)
-.venv\Scripts\python.exe test\clock_alarm_test.py
+.venv\Scripts\python.exe test\mobile_automation_test.py
 
 # macOS/Linux (with virtual environment)
-.venv/bin/python test/clock_alarm_test.py
+.venv/bin/python test/mobile_automation_test.py
 ```
 
-### Expected Output
+This will automatically test **both Android and iOS** platforms sequentially.
+
+### Quick Configuration
+
+Edit `test/mobile_automation_test.py`:
+```python
+CONFIG = {
+    'test_android': True,   # Enable/disable Android testing
+    'test_ios': True,       # Enable/disable iOS testing
+    'username': 'your_username',
+    'access_key': 'your_access_key'
+}
+```
+
+### Switch Between Platforms
+
+**For Android Testing:**
+1. Set `'platform': 'Android'` in `TEST_CONFIG`
+2. Configure `android` section with device and app details
+3. Run the test script
+
+**For iOS Testing:**
+1. Set `'platform': 'iOS'` in `TEST_CONFIG`
+2. Configure `ios` section with device, app, and bundle ID
+3. Run the test script
+
+### Expected Output (Cross-Platform)
 
 ```
 ============================================================
-  🚀 STARTING APP AUTOMATION TEST
+  MOBILE APP AUTOMATION - CROSS-PLATFORM TEST
 ============================================================
 
-[STEP 1] Initializing WebDriver connection to BrowserStack...
-✅ WebDriver session created successfully
-
-[STEP 2] Verifying app launch...
-✅ App launched successfully
-   Package: com.example.app
-   Activity: com.example.MainActivity
-
-[STEP 3] Interacting with app...
-✅ Found 5 UI elements
-
-[STEP 4] Capturing screenshot...
-✅ Screenshot captured successfully
-
-[STEP 5] Setting BrowserStack session status...
-✅ BrowserStack session status set to: passed
+Testing platforms: Android, iOS
 
 ============================================================
-  ✅ TEST PASSED SUCCESSFULLY!
+  TESTING ANDROID
+============================================================
+[1/5] Connecting to BrowserStack...
+✅ Connected
+[2/5] Verifying app launch...
+✅ Package: com.google.android.permissioncontroller
+[3/5] Detecting UI elements...
+✅ Found 2 elements
+[4/5] Capturing screenshot...
+✅ Screenshot saved
+[5/5] Updating session status...
+✅ Status updated
+
+✅ ANDROID TEST PASSED (21.3s)
+
+Waiting 5s before next test...
+
+============================================================
+  TESTING IOS
+============================================================
+[1/5] Connecting to BrowserStack...
+✅ Connected
+[2/5] Verifying app launch...
+✅ iOS app launched
+[3/5] Detecting UI elements...
+✅ Found 5 elements
+[4/5] Capturing screenshot...
+✅ Screenshot saved
+[5/5] Updating session status...
+✅ Status updated
+
+✅ IOS TEST PASSED (24.1s)
+
+============================================================
+  TEST SUMMARY
 ============================================================
 
-📱 App tested on: Samsung Galaxy S22
-🏗️  Build: Uploaded App Execution
+✅ ANDROID
+   Status: PASSED
+   Duration: 21.3s
 
-[CLEANUP] Closing WebDriver session...
-✅ WebDriver session closed successfully
+✅ IOS
+   Status: PASSED
+   Duration: 24.1s
 
-============================================================
-             EXECUTION SUMMARY
-============================================================
-Test Name      : Python Appium Execution
-Platform       : Android
-Device         : Samsung Galaxy S22
-App ID         : bs://ab8e05e86a67dcb2cb42d07f4e742e1822dda79c
-Project        : Clock Automation Python Migration
-Build          : Uploaded App Execution
-Status         : PASSED
-============================================================
+------------------------------------------------------------
+Platforms: 2 | Passed: 2 | Failed: 0
+Total Time: 53.5s
+------------------------------------------------------------
+
+✅ ALL TESTS PASSED!
 ```
+
+### Platform-Specific Notes
+
+**Android:**
+- Uses **UiAutomator2** driver for automation
+- Requires `.apk` file uploaded to BrowserStack
+- Elements identified by: `android.widget.*` class names
+- Common locators: resource-id, text, content-desc
+
+**iOS:**
+- Uses **XCUITest** driver for automation
+- Requires `.ipa` file uploaded to BrowserStack
+- Requires bundle identifier in configuration
+- Elements identified by: `XCUIElementType*` class names
+- Common locators: accessibility-id, name, label
 
 ---
 
@@ -205,15 +310,16 @@ Status         : PASSED
 clock-automation/
 │
 ├── test/
-│   └── clock_alarm_test.py      # Main automation script
+│   └── mobile_automation_test.py    # ⭐ Main test script (~200 lines)
 │
-├── .venv/                        # Virtual environment (not in git)
+├── .venv/                           # Virtual environment (not in git)
 │
-├── .env.example                  # Environment variables template
-├── .gitignore                    # Git ignore rules
-├── requirements.txt              # Python dependencies
-├── README.md                     # This file
-└── TEST_EXECUTION_REPORT.md      # Latest test execution results
+├── .env.example                     # Environment variables template
+├── .gitignore                       # Git ignore rules
+├── requirements.txt                 # Python dependencies
+├── README.md                        # This file
+├── INTERVIEW_GUIDE.md              # 📘 Interview walkthrough guide
+└── TEST_EXECUTION_REPORT.md         # Latest test execution results
 ```
 
 ---
@@ -225,18 +331,31 @@ clock-automation/
 #### 1. **Configuration Layer**
 ```python
 TEST_CONFIG = {
-    'test_name': 'Python Appium Execution',
-    'platform': 'Android',
-    'device': 'Samsung Galaxy S22',
-    'app_id': 'bs://...',
-    'project_name': 'Project Name',
-    'build_name': 'Build Name'
+    'test_name': 'Mobile App Test',
+    'platform': 'Android',  # or 'iOS'
+    
+    'android': {
+        'device': 'Samsung Galaxy S22',
+        'os_version': '12.0',
+        'app_id': 'bs://android_app_id',
+    },
+    
+    'ios': {
+        'device': 'iPhone 14',
+        'os_version': '16',
+        'app_id': 'bs://ios_app_id',
+        'bundle_id': 'com.example.app'
+    },
+    
+    'project_name': 'Mobile App Automation',
+    'build_name': 'Cross-Platform Execution'
 }
 ```
 
 #### 2. **Capability Management**
-- `get_capabilities()` - Configures BrowserStack capabilities
-- Uses `UiAutomator2Options` for Android-specific settings
+- `get_capabilities()` - Dynamically configures BrowserStack capabilities based on selected platform
+- Returns `UiAutomator2Options` for Android or `XCUITestOptions` for iOS
+- Automatically applies platform-specific settings
 - Separates platform configs from BrowserStack options
 
 #### 3. **Helper Functions**
@@ -331,21 +450,57 @@ pip install -r requirements.txt
 
 **Error:** `[BROWSERSTACK_INVALID_APP_CAP]`
 
-**Solution:**
-1. Upload your .apk to BrowserStack
+**Solution for Android:**
+1. Upload your `.apk` to BrowserStack
 2. Copy the app ID (starts with `bs://`)
-3. Update `app_id` in `TEST_CONFIG`
-4. Update `app` capability in `get_capabilities()`
+3. Update `app_id` in `TEST_CONFIG['android']`
 
-### Issue: Element Not Found
+**Solution for iOS:**
+1. Upload your `.ipa` to BrowserStack
+2. Copy the app ID (starts with `bs://`)
+3. Update `app_id` in `TEST_CONFIG['ios']`
+4. Ensure `bundle_id` matches your app's bundle identifier
+
+### Issue: iOS App Won't Launch
+
+**Error:** `Application could not be started`
+
+**Solutions:**
+1. Verify `.ipa` is properly signed for testing
+2. Check bundle identifier is correct
+3. Ensure iOS version compatibility
+4. Use BrowserStack's app inspector to validate upload
+
+### Issue: Platform-Specific Element Not Found
 
 **Error:** `TimeoutException: Element not found`
+
+**Solution for Android:**
+1. Use Android-specific locators: `android.widget.Button`, etc.
+2. Check resource-id, content-desc, text attributes
+3. Use BrowserStack Inspector to find correct locators
+
+**Solution for iOS:**
+1. Use iOS-specific locators: `XCUIElementTypeButton`, etc.
+2. Check accessibility-id, name, label attributes
+3. Use Xcode or BrowserStack Inspector for element identification
 
 **Solution:**
 1. Increase timeout values in `wait_for_element()`
 2. Verify element locators using BrowserStack Inspector
 3. Add more fallback locator strategies
 4. Check if app screen has loaded completely
+
+---
+
+## 🎤 Interview Preparation
+
+**Preparing for an interview?** Check out the [INTERVIEW_GUIDE.md](INTERVIEW_GUIDE.md) for:
+- Complete code walkthrough
+- Technical talking points
+- Common interview questions & answers
+- Demo script
+- Extension points
 
 ---
 
@@ -379,9 +534,11 @@ Keep test data separate from test logic using configuration dictionaries.
 
 ## 📊 Performance Metrics
 
-- **Average Test Duration:** 30-45 seconds
-- **WebDriver Initialization:** 5-8 seconds
-- **App Launch Time:** 3-5 seconds
+- **Total Test Duration (Both Platforms):** ~54 seconds
+- **Android Test:** ~21 seconds
+- **iOS Test:** ~24 seconds
+- **WebDriver Initialization:** 3-5 seconds per platform
+- **App Launch Time:** 2-3 seconds
 - **Element Interaction:** <1 second per action
 - **Screenshot Capture:** <1 second
 

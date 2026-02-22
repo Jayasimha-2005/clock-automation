@@ -96,3 +96,62 @@ geckodriver.log
 # ========================================
 BrowserStackLocal
 BrowserStackLocal.exe
+
+# ========================================
+# Python
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ========================================
+# Virtual Environment
+# ========================================
+.venv/
+venv/
+ENV/
+env/
+.virtualenv/
+
+# ========================================
+# Python Testing & Coverage
+# ========================================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# ========================================
+# Python Type Checking
+# ========================================
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# ========================================
+# Jupyter Notebook
+# ========================================
+.ipynb_checkpoints
+
+# ========================================
+# pyenv
+# ========================================
+.python-version
+
+# ========================================
+# BrowserStack Session Files
+# ========================================
+browserstack-session-*.json
+session-*.json
